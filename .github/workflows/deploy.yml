@@ -9,6 +9,11 @@ jobs:
   build-deploy:
     runs-on: ubuntu-latest
 
+    permissions:
+      contents: write # Permission to push code to the repo
+      actions: read # For interacting with actions
+      id-token: write # For creating IDs (optional)
+
     steps:
       - uses: actions/checkout@v3
 
