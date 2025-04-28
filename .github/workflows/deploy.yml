@@ -1,0 +1,46 @@
+name: Deploy React App
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-deploy:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write # Permission to push code to the repo
+      actions: read # For interacting with actions
+      id-token: write # For creating IDs (optional)
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - run: npm install
+      - run: npm run build
+
+      - name: Set Git user
+        run: |
+          git config --global user.name "Vu-Duc"
+          git config --global user.email "ducwebdev@gmail.com"
+
+      - name: Set up authentication for gh-pages
+        run: |
+          git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
+
+      - run: |
+          npm install -g gh-pages
+          npm run deploy
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # - name: Send Slack Notification
+      #   run: |
+      #     curl -X POST -H 'Content-type: application/json' \
+      #     --data '{"text":"✅ React app deployed!\nRepository: '${{ github.repository }}'\nBranch: '${{ github.ref_name }}'\nBy: '${{ github.actor }}'"}' \
+      #     ${{ secrets.SLACK_WEBHOOK_URL }}
