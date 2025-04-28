@@ -21,8 +21,12 @@ jobs:
 
       - name: Set Git user
         run: |
-          git config --global user.name "Vu-Duc"
-          git config --global user.email "ducwebdev@gmail.com"
+          git config --global user.name "github-actions"
+          git config --global user.email "github-actions@github.com"
+
+      - name: Set up authentication for gh-pages
+        run: |
+          git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
 
       - run: |
           npm install -g gh-pages
