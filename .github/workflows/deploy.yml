@@ -40,6 +40,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Send Slack Notification
+        if: success() # Send notification only if the deployment is successful
         run: |
           curl -X POST -H 'Content-type: application/json' \
           --data '{"text":"✅ React app deployed!\nRepository: '${{ github.repository }}'\nBranch: '${{ github.ref_name }}'\nBy: '${{ github.actor }}'"}' \
