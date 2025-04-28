@@ -44,4 +44,4 @@ jobs:
         run: |
           curl -X POST -H 'Content-type: application/json' \
           --data '{"text":"✅ React app deployed!\nRepository: '${{ github.repository }}'\nBranch: '${{ github.ref_name }}'\nBy: '${{ github.actor }}'"}' \
-          ${{ secrets.SLACK_WEBHOOK_URL }}
+          ${{ secrets.SLACK_WEBHOOK_URL2 }}
