@@ -39,8 +39,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      # - name: Send Slack Notification
-      #   run: |
-      #     curl -X POST -H 'Content-type: application/json' \
-      #     --data '{"text":"✅ React app deployed!\nRepository: '${{ github.repository }}'\nBranch: '${{ github.ref_name }}'\nBy: '${{ github.actor }}'"}' \
-      #     ${{ secrets.SLACK_WEBHOOK_URL }}
+      - name: Send Slack Notification
+        run: |
+          curl -X POST -H 'Content-type: application/json' \
+          --data '{"text":"✅ React app deployed!\nRepository: '${{ github.repository }}'\nBranch: '${{ github.ref_name }}'\nBy: '${{ github.actor }}'"}' \
+          ${{ secrets.SLACK_WEBHOOK_URL }}
